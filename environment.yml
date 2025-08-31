@@ -24,3 +24,7 @@ dependencies:
   - scikit-optimize==0.10.2
   - pillow==11.3.0
   - torchvision==0.20.1
+  - fastparquet==2024.11.0
+  - scikit-image==0.25.2
+  - xaitk-saliency==0.13.0
+  - ultralytics==8.3.190
