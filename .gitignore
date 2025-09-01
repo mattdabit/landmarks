@@ -1,3 +1,5 @@
 /.idea
 *.zip
-/data
+/data/**/*.jpg
+/data/**/*.parquet
+!/data/**/joined_features_all.parquet
