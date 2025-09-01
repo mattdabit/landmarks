@@ -2,4 +2,3 @@
 *.zip
 /data/**/*.jpg
 /data/**/*.parquet
-!/data/**/joined_features_all.parquet
