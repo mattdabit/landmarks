@@ -54,7 +54,9 @@ The data extraction code processes the landmark images to create parquet files c
     4. Mean RGB
 2. Embeddings
     1. An Embedding of an image is a numeric vector that captures the content of the image (shape, textures, objects)
-        1. I utilized a pre-trained model [ResNet-50](https://medium.com/@f.a.reid/image-similarity-using-feature-embeddings-357dc01514f8) from the torchvision package.
+        1. I utilized a pre-trained
+           model [ResNet-50](https://medium.com/@f.a.reid/image-similarity-using-feature-embeddings-357dc01514f8) from
+           the torchvision package.
     2. These were quite large and could not be joined to the main dataset. I still will like to leverage these features,
        as I think the dimensionality reduction I do may have lost too much data.
 3. Embeddings reduced to 2 Dimensions
@@ -64,20 +66,66 @@ The data extraction code processes the landmark images to create parquet files c
        by [t-SNE](https://en.wikipedia.org/wiki/T-distributed_stochastic_neighbor_embedding) distinguished models into
        clusters.
 4. Local Binary Pattern
-    1. [LBP](https://en.wikipedia.org/wiki/Local_binary_patterns) is a texture descriptor. It does this by comparing a pixel to its neighboring pixels. It captures the
+    1. [LBP](https://en.wikipedia.org/wiki/Local_binary_patterns) is a texture descriptor. It does this by comparing a
+       pixel to its neighboring pixels. It captures the
        intensity
        of each pixel and compares their intensities. It will assign 1 if the neighboring pixel's intensity is greater
        than the pixel currently being assessed. Otherwise, LBP will assign 0. The algorithm then combines the binary
        values of all the neighboring pixels to create a value for the pixel being assessed. It does this for all the
        pixels in the image to create a binary code representing the texture of the image.
+    2. I parallelized this extraction because it was taking too long. Future feature extractions will follow the same
+       pattern.
 
 I chose to create parquets over csvs for space and speed concerns.
-Next, I joined all the parquets into 1 for each feature type (excluding embedding). 
-Finally, I joined all that data into the train csv and produced a new dataset to train on with the features above. 
+Next, I joined all the parquets into 1 for each feature type (excluding embedding).
+Finally, I joined all that data into the train csv and produced a new dataset to train on with the features above.
 
 ⚠️IMPORTANT NOTE: The joined_features_all.parquet file, which contains combined features for all landmarks, is not
 included in the
 repository
 due to its large size. This file can be generated locally using the data extraction notebook, however this process can
 take several days.
-    
+
+## Exploratory Data Analysis
+
+There are 81,313 unique landmarks in the dataset. There are 1,580,470 total images. For a portion of this analysis I
+took a sample set of unique landmarks to analyze.
+
+### Landmarks
+
+<img src="images/landmark_count.png"/>
+
+### Aspect Ratio
+
+<img src="images/aspect_ratio_histogram.png"/>
+
+### Mean RGB
+
+<img src="images/color_channel_pairwise_all_landmarks.png"/>
+<img src="images/color_channel_pairwise_5_landmarks.png"/>
+<img src="images/3d_color_channel_5_landmarks.png"/>
+
+### Local Binary Pattern Mean
+
+<img src="images/lbp_mean_histogram_5_landmarks.png"/>
+
+### Embedding 2 Dimensions
+
+<img src="images/embedding_2d_scatter_5_landmarks.png"/>
+<img src="images/embedding_2d_scatter_25_landmarks.png"/>
+
+## Base Model Analysis
+
+### ML Flow
+I use mlflow for experiment tracking. 
+Simply run `mlflow ui` to bring up the GUI for MLFlow and see the experiments I ran. 
+
+
+<img src="images/model_metrics_comparison.png"/>
+
+## Next Steps / Recommendations
+
+1. Handle class imbalance
+2. Use full embedding
+3. Check out Deep Learning models like CNN
+4. Hyperparameters for Random Forest and cross-validation
