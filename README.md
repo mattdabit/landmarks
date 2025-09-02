@@ -2,6 +2,30 @@
 
 A repository focused on landmark recognition and retrieval.
 
+## Table of Contents
+
+- [Link to notebook](#link-to-notebook)
+- [Repository Structure](#repository-structure)
+- [Local Installation](#local-installation)
+- [About the Dataset](#about-the-dataset)
+- [Why is this important? (Business Understanding)](#why-is-this-important-business-understanding)
+- [Data Extraction Process](#data-extraction-process)
+- [Exploratory Data Analysis](#exploratory-data-analysis)
+    - [Landmarks](#landmarks)
+    - [Aspect Ratio](#aspect-ratio)
+    - [Mean RGB](#mean-rgb)
+    - [Local Binary Pattern Mean](#local-binary-pattern-mean)
+    - [Embedding 2 Dimensions](#embedding-2-dimensions)
+- [Base Model Analysis](#base-model-analysis)
+    - [ML Flow](#ml-flow)
+    - [Base model comparison (Traditional ML Models)](#base-model-comparison-traditional-ml-models)
+- [Next Steps / Recommendations](#next-steps--recommendations)
+
+## Link to notebook
+
+[Data Extraction Notebook](https://github.com/mattdabit/landmarks/blob/main/data_extraction.ipynb)
+[EDA Notebook](https://github.com/mattdabit/landmarks/blob/main/eda.ipynb)
+
 ## Repository Structure
 
 The repository is organized into several key directories:
