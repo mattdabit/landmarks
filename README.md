@@ -10,6 +10,12 @@ A repository focused on landmark recognition and retrieval.
 - [About the Dataset](#about-the-dataset)
 - [Why is this important? (Business Understanding)](#why-is-this-important-business-understanding)
 - [Data Extraction Process](#data-extraction-process)
+    - [Image Stats](#image-stats)
+    - [Embeddings](#embeddings)
+    - [Embeddings 2D](#embeddings-2d)
+    - [Local Binary Pattern](#local-binary-pattern)
+    - [Parquet over CSV](#parquet-over-csv)
+    - [IMPORTANT NOTE](#important-note)
 - [Exploratory Data Analysis](#exploratory-data-analysis)
     - [Landmarks](#landmarks)
     - [Aspect Ratio](#aspect-ratio)
@@ -50,7 +56,7 @@ The repository is organized into several key directories:
 
 The dataset was procured from
 the [Google Landmark Retrieval 2021
-](https://www.kaggle.com/competitions/landmark-retrieval-2021/data) kaggle competition.
+](https://www.kaggle.com/competitions/landmark-retrieval-2021/overview) kaggle competition.
 The dataset contains over 1.5 million images and is over 100GB of data.
 The purpose of the competition is to develop a model that can efficiently fetch landmark images.
 
@@ -71,39 +77,48 @@ plate, early wildfire detection with satellite images and much more.
 
 The data extraction code processes the landmark images to create parquet files containing extracted features:
 
-1. Image Stats - Basic details of the image
-    1. Height
-    2. Width
-    3. Aspect Ratio
-    4. Mean RGB
-2. Embeddings
-    1. An Embedding of an image is a numeric vector that captures the content of the image (shape, textures, objects)
-        1. I utilized a pre-trained
-           model [ResNet-50](https://medium.com/@f.a.reid/image-similarity-using-feature-embeddings-357dc01514f8) from
-           the torchvision package.
-    2. These were quite large and could not be joined to the main dataset. I still will like to leverage these features,
-       as I think the dimensionality reduction I do may have lost too much data.
-3. Embeddings reduced to 2 Dimensions
-    1. After noticing the size of the embedding files, I knew I had to reduce the amount of data I had for training.
-    2. I used a technique called t-distributed stochastic neighbor embedding, which reduces data to two points.
-    3. As we will see in the EDA, the values produced
-       by [t-SNE](https://en.wikipedia.org/wiki/T-distributed_stochastic_neighbor_embedding) distinguished models into
-       clusters.
-4. Local Binary Pattern
-    1. [LBP](https://en.wikipedia.org/wiki/Local_binary_patterns) is a texture descriptor. It does this by comparing a
-       pixel to its neighboring pixels. It captures the
-       intensity
-       of each pixel and compares their intensities. It will assign 1 if the neighboring pixel's intensity is greater
-       than the pixel currently being assessed. Otherwise, LBP will assign 0. The algorithm then combines the binary
-       values of all the neighboring pixels to create a value for the pixel being assessed. It does this for all the
-       pixels in the image to create a binary code representing the texture of the image.
-    2. I parallelized this extraction because it was taking too long. Future feature extractions will follow the same
-       pattern.
+### Image Stats
+
+Basic details of the image
+1. Height
+2. Width
+3. Aspect Ratio
+4. Mean RGB
+
+### Embeddings
+
+1. An Embedding of an image is a numeric vector that captures the content of the image (shape, textures, objects)
+    1. I utilized a pre-trained
+       model [ResNet-50](https://medium.com/@f.a.reid/image-similarity-using-feature-embeddings-357dc01514f8) from
+       the torchvision package.
+2. These were quite large and could not be joined to the main dataset. I still will like to leverage these features,
+   as I think the dimensionality reduction I do may have lost too much data.
+
+### Embeddings 2D
+1. After noticing the size of the embedding files, I knew I had to reduce the amount of data I had for training.
+2. I used a technique called t-distributed stochastic neighbor embedding, which reduces data to two points.
+3. As we will see in the EDA, the values produced
+   by [t-SNE](https://en.wikipedia.org/wiki/T-distributed_stochastic_neighbor_embedding) distinguished models into
+   clusters.
+
+### Local Binary Pattern
+1. [LBP](https://en.wikipedia.org/wiki/Local_binary_patterns) is a texture descriptor. It does this by comparing a
+   pixel to its neighboring pixels. It captures the
+   intensity
+   of each pixel and compares their intensities. It will assign 1 if the neighboring pixel's intensity is greater
+   than the pixel currently being assessed. Otherwise, LBP will assign 0. The algorithm then combines the binary
+   values of all the neighboring pixels to create a value for the pixel being assessed. It does this for all the
+   pixels in the image to create a binary code representing the texture of the image.
+2. I parallelized this extraction because it was taking too long. Future feature extractions will follow the same
+   pattern.
+
+### Parquet over CSV
 
 I chose to create parquets over csvs for space and speed concerns.
 Next, I joined all the parquets into 1 for each feature type (excluding embedding).
 Finally, I joined all that data into the train csv and produced a new dataset to train on with the features above.
 
+### IMPORTANT NOTE
 ⚠️IMPORTANT NOTE: The joined_features_all.parquet file, which contains combined features for all landmarks, is not
 included in the
 repository
