@@ -60,8 +60,8 @@ The data extraction code processes the landmark images to create parquet files c
     2. These were quite large and could not be joined to the main dataset. I still will like to leverage these features,
        as I think the dimensionality reduction I do may have lost too much data.
 3. Embeddings reduced to 2 Dimensions
-    1. After noticing the size of the embedding files I knew I had to reduce the amount of data I had for training.
-    2. I utilized a technique called t-distributed stochastic neighbor embedding, which reduces data to two points.
+    1. After noticing the size of the embedding files, I knew I had to reduce the amount of data I had for training.
+    2. I used a technique called t-distributed stochastic neighbor embedding, which reduces data to two points.
     3. As we will see in the EDA, the values produced
        by [t-SNE](https://en.wikipedia.org/wiki/T-distributed_stochastic_neighbor_embedding) distinguished models into
        clusters.
@@ -83,7 +83,7 @@ Finally, I joined all that data into the train csv and produced a new dataset to
 ⚠️IMPORTANT NOTE: The joined_features_all.parquet file, which contains combined features for all landmarks, is not
 included in the
 repository
-due to its large size. This file can be generated locally using the data extraction notebook, however this process can
+due to its large size. This file can be generated locally using the data extraction notebook, however, this process can
 take several days.
 
 ## Exploratory Data Analysis
@@ -95,37 +95,114 @@ took a sample set of unique landmarks to analyze.
 
 <img src="images/landmark_count.png"/>
 
+The fact that landmark 138982 has 3 times as many images as the next highest landmark is concerning.
+We should keep an eye on that and will likely need to reduce the number of samples from that landmark id.
+
 ### Aspect Ratio
 
 <img src="images/aspect_ratio_histogram.png"/>
 
+Aspect ratio seems like it will not be much of a factor in training. Might be noise, and we should check out the feature
+importance of this field.
+
 ### Mean RGB
 
 <img src="images/color_channel_pairwise_all_landmarks.png"/>
+
+The initial generation of this comparison did not bode well. At this point, I realized that I may be trying to analyze
+too much data at once. I decided to pull five unique landmarks and compare their data.
+
+```jupyter
+selected_ids = unique_landmarks[:5]
+five_landmarks_df = train_df[train_df['landmark_id'].isin(selected_ids)].copy()
+```
+
+- Landmark 1
+
+<img src="images/17660ef415d37059.jpg"/>
+
+- Landmark 7
+
+<img src="images/28b13f94a6f1f3c1.jpg"/>
+
+- Landmark 9
+
+<img src="images/0193b65bb58d2c77.jpg"/>
+
+- Landmark 11
+
+<img src="images/1a6cb1deed46bb17.jpg"/>
+
+- Landmark 12
+
+<img src="images/1492a5d344495391.jpg"/>
+
+The above are the landmarks selected by the above code. Since we are dealing with over 80,000 unique landmarks and over
+1.5 million images, I will limit the analysis to a subset of landmarks.
+
 <img src="images/color_channel_pairwise_5_landmarks.png"/>
+
+When I compared these 5 unique landmarks and their associated images I found some concetrations and clusters visually in
+the scatter plot.
+This gave me some hope that mean RGB could be a powerful feature. We may want to transform it more by creation ratios.
+
 <img src="images/3d_color_channel_5_landmarks.png"/>
+
+It is tough to visualize a 3d plot in 2d. This plot confirmed my above findings. When looking through this 3d plot the
+clusters of landmarks became more apparent.
 
 ### Local Binary Pattern Mean
 
 <img src="images/lbp_mean_histogram_5_landmarks.png"/>
 
+Once again I used the 5 unique landmarks. The local binary pattern of an image will generate a vector and assign a value
+for each pixel.
+This process describes the texture of an image. For this plot, I grouped the data by landmark id and calculated the
+average local binary pattern. I then plotted this data.
+Here we can see a visually identifiable different between the landmarks for the 12 & 13 bins. If we can extract that
+feature and utilize it
+for our future models we may see success.
+
 ### Embedding 2 Dimensions
 
 <img src="images/embedding_2d_scatter_5_landmarks.png"/>
+
+In this scatter plot of 2D embeddings, we can clearly see distinct clusters forming for different landmarks, which
+suggests that our embedding process has successfully captured the characteristics of the landmarks.
+
 <img src="images/embedding_2d_scatter_25_landmarks.png"/>
+
+I was so excited about the above finding with 5 landmarks I tried the same process with 25 and found similar results!
+This shows embeddings, even when reduced to two dimensions, will be a very strong feature for modeling.
 
 ## Base Model Analysis
 
 ### ML Flow
-I use mlflow for experiment tracking. 
-Simply run `mlflow ui` to bring up the GUI for MLFlow and see the experiments I ran. 
 
+I use mlflow for experiment tracking.
+Simply run `mlflow ui` to bring up the GUI for MLFlow and see the experiments I ran. Additionally, I log all my metrics
+in mlflow.
+
+### Base model comparison (Traditional ML Models)
+
+Earlier experiments showed me that my machine cannot train such a large model with sklearn in a reasonably time. In order
+to be pragmatic, I reduce the number of landmarks to train on to 100.
+This may prove to not be an issue when I move to use pytorch/tensorflow, as both packages can leverage my GPU.
 
 <img src="images/model_metrics_comparison.png"/>
+
+The traditional machine learning models did not perform to satisfaction, but they do provide a solid baseline.
+Our target metric for this project is average precision. We see that the Random Forest and Gradient Boosting models both
+perform the best here.
+Now without any tuning, a score of <0.3 in average precision was very exciting. My larger goal will be to move to a deep
+learnign model
+but it may be nice to tune the Random Forest and Gradient Boosting models as a comparison
 
 ## Next Steps / Recommendations
 
 1. Handle class imbalance
-2. Use full embedding
-3. Check out Deep Learning models like CNN
-4. Hyperparameters for Random Forest and cross-validation
+2. Look into width and height histograms
+3. Use full embedding
+4. Check out Deep Learning models like CNN
+5. Hyperparameters for Random Forest and cross-validation
+6. Build average LBP feature 
