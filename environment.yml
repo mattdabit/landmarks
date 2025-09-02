@@ -29,3 +29,4 @@ dependencies:
   - xaitk-saliency==0.13.0
   - ultralytics==8.3.190
   - mlflow==3.2.0
+  - torchmetrics==1.8.1

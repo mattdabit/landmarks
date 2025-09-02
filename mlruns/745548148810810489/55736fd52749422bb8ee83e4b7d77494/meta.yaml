@@ -1,0 +1,14 @@
+artifact_uri: file:///mnt/c/Users/Matt/workspace/landmarks/mlruns/745548148810810489/55736fd52749422bb8ee83e4b7d77494/artifacts
+end_time: 1756781727278
+entry_point_name: ''
+experiment_id: '745548148810810489'
+lifecycle_stage: active
+run_id: 55736fd52749422bb8ee83e4b7d77494
+run_name: Gradient Boosting
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1756781721692
+status: 3
+tags: []
+user_id: matt
