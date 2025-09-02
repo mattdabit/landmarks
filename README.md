@@ -4,7 +4,7 @@ A repository focused on landmark recognition and retrieval.
 
 ## Table of Contents
 
-- [Link to notebook](#link-to-notebook)
+- [Link to notebooks](#link-to-notebooks)
 - [Repository Structure](#repository-structure)
 - [Local Installation](#local-installation)
 - [About the Dataset](#about-the-dataset)
@@ -27,9 +27,10 @@ A repository focused on landmark recognition and retrieval.
     - [Base model comparison (Traditional ML Models)](#base-model-comparison-traditional-ml-models)
 - [Next Steps / Recommendations](#next-steps--recommendations)
 
-## Link to notebook
+## Link to notebooks
 
 [Data Extraction Notebook](https://github.com/mattdabit/landmarks/blob/main/data_extraction.ipynb)
+
 [EDA Notebook](https://github.com/mattdabit/landmarks/blob/main/eda.ipynb)
 
 ## Repository Structure
