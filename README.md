@@ -25,6 +25,7 @@ A repository focused on landmark recognition and retrieval.
 - [Base Model Analysis](#base-model-analysis)
     - [ML Flow](#ml-flow)
     - [Base model comparison (Traditional ML Models)](#base-model-comparison-traditional-ml-models)
+    - [Feature Importance](#feature-importance)
 - [Next Steps / Recommendations](#next-steps--recommendations)
 
 ## Link to notebooks
@@ -237,6 +238,34 @@ perform the best here.
 Now without any tuning, a score of <0.3 in average precision was very exciting. My larger goal will be to move to a deep
 learnign model
 but it may be nice to tune the Random Forest and Gradient Boosting models as a comparison
+
+### Feature importance
+
+Evaluating the top features for base models to gain more insight for when we try deep learning models.
+
+<img src="images/forest_top_features.png"/>
+
+Aspect ratio, unexpectedly, was the most important feature. This was a shock to me considering our assesment on the
+histogram.
+Seeing our embedding and local binary pattern bins in the top ten is very encouraging and supports my understanding of
+image similarity detection
+
+<img src="images/gradient_top_features.png"/>
+
+I noticed the bin 24 for local binary pattern is also in the top features for Gradient Boosting, like Random Forest. We
+also again see our 2D embedding as top features.
+
+<img src="images/logistic_regression_top_features.png"/>
+
+The 2D embedding features were the most important for logistic regression. However, this did not translate to better
+model performance compared to tree-based models. Mean color channels were also important to the Logistic Regression
+model.
+
+
+<img src="images/svc_top_features.png"/>
+
+The 2D embedding features were the most important for the SVC model, followed by the the 2D embedding and color
+channels.
 
 ## Next Steps / Recommendations
 
