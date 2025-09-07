@@ -232,12 +232,12 @@ This may prove to not be an issue when I move to use pytorch/tensorflow, as both
 
 <img src="images/model_metrics_comparison.png"/>
 
-The traditional machine learning models did not perform to satisfaction, but they do provide a solid baseline.
-Our target metric for this project is average precision. We see that the Random Forest and Gradient Boosting models both
+The traditional machine learning models did performed very well in terms of average precision and provide a solid baseline.
+Our target metric for this project is average precision. We see that the Random Forest and Logistic Regression models both
 perform the best here.
-Now without any tuning, a score of <0.3 in average precision was very exciting. My larger goal will be to move to a deep
-learnign model
-but it may be nice to tune the Random Forest and Gradient Boosting models as a comparison
+Now without any tuning, a score of <0.68 in average precision was very exciting. My larger goal will be to move to a deep
+learning model
+but it may be nice to tune the Random Forest and Logistic Regression models as a comparison
 
 ### Feature importance
 
@@ -257,10 +257,9 @@ also again see our 2D embedding as top features.
 
 <img src="images/logistic_regression_top_features.png"/>
 
-The 2D embedding features were the most important for logistic regression. However, this did not translate to better
-model performance compared to tree-based models. Mean color channels were also important to the Logistic Regression
+The 2D embedding features were the most important for logistic regression. This translated to better
+model performance compared to SVC and Gradient Boosting models. Mean color channels were also important to the Logistic Regression
 model.
-
 
 <img src="images/svc_top_features.png"/>
 

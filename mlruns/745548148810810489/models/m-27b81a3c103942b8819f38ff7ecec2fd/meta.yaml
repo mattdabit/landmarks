@@ -1,0 +1,10 @@
+artifact_location: file:///mnt/c/Users/Matt/workspace/landmarks/mlruns/745548148810810489/models/m-27b81a3c103942b8819f38ff7ecec2fd/artifacts
+creation_timestamp: 1757268627633
+experiment_id: '745548148810810489'
+last_updated_timestamp: 1757268630430
+model_id: m-27b81a3c103942b8819f38ff7ecec2fd
+model_type: null
+name: SVC
+source_run_id: 517532d1f8d74f6bb8ea38b5c3b5e40f
+status: 2
+status_message: null

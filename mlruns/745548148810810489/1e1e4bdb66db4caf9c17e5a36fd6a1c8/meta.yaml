@@ -1,0 +1,14 @@
+artifact_uri: file:///mnt/c/Users/Matt/workspace/landmarks/mlruns/745548148810810489/1e1e4bdb66db4caf9c17e5a36fd6a1c8/artifacts
+end_time: 1757268620383
+entry_point_name: ''
+experiment_id: '745548148810810489'
+lifecycle_stage: active
+run_id: 1e1e4bdb66db4caf9c17e5a36fd6a1c8
+run_name: Random Forest
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757268613181
+status: 3
+tags: []
+user_id: matt

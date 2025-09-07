@@ -1,0 +1,10 @@
+artifact_location: file:///mnt/c/Users/Matt/workspace/landmarks/mlruns/745548148810810489/models/m-f0a53282d67a4fc1a7c5ac3c9b05873e/artifacts
+creation_timestamp: 1757268633079
+experiment_id: '745548148810810489'
+last_updated_timestamp: 1757268636077
+model_id: m-f0a53282d67a4fc1a7c5ac3c9b05873e
+model_type: null
+name: Gradient Boosting
+source_run_id: 4c6c4cd2048247be93e308aaeff4ce6b
+status: 2
+status_message: null
