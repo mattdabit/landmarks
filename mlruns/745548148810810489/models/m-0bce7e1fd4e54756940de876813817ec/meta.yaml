@@ -1,0 +1,10 @@
+artifact_location: file:///mnt/c/Users/Matt/workspace/landmarks/mlruns/745548148810810489/models/m-0bce7e1fd4e54756940de876813817ec/artifacts
+creation_timestamp: 1757329611652
+experiment_id: '745548148810810489'
+last_updated_timestamp: 1757329616854
+model_id: m-0bce7e1fd4e54756940de876813817ec
+model_type: null
+name: 'Siamese CNN Resnet50 '
+source_run_id: e8ad20f307064a0eb2ec59eb3fb7e0ea
+status: 2
+status_message: null

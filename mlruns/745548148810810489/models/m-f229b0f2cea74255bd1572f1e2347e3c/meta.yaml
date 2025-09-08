@@ -1,0 +1,10 @@
+artifact_location: file:///mnt/c/Users/Matt/workspace/landmarks/mlruns/745548148810810489/models/m-f229b0f2cea74255bd1572f1e2347e3c/artifacts
+creation_timestamp: 1757303706135
+experiment_id: '745548148810810489'
+last_updated_timestamp: 1757303710252
+model_id: m-f229b0f2cea74255bd1572f1e2347e3c
+model_type: null
+name: Siamese CNN Resnet18
+source_run_id: d4a95a381e6244eb942a129fa5600b75
+status: 2
+status_message: null

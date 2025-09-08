@@ -1,0 +1,22 @@
+channels:
+- conda-forge
+dependencies:
+- python=3.12.11
+- pip<=25.1.1
+- pip:
+  - mlflow==3.2.0
+  - astunparse==1.6.3
+  - cloudpickle==3.1.1
+  - defusedxml==0.7.1
+  - gmpy2==2.2.1
+  - jaraco-collections==5.1.0
+  - numpy==1.26.4
+  - optree==0.16.0
+  - packaging==25.0
+  - pandas==2.3.2
+  - pyyaml==6.0.2
+  - torch==2.5.1
+  - torchvision==0.20.1
+  - triton==3.1.0
+  - typing-extensions==4.14.1
+name: mlflow-env
