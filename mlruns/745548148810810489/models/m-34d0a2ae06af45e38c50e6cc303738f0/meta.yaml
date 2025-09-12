@@ -1,0 +1,10 @@
+artifact_location: file:///mnt/c/Users/Matt/workspace/landmarks/mlruns/745548148810810489/models/m-34d0a2ae06af45e38c50e6cc303738f0/artifacts
+creation_timestamp: 1757666999521
+experiment_id: '745548148810810489'
+last_updated_timestamp: 1757667005623
+model_id: m-34d0a2ae06af45e38c50e6cc303738f0
+model_type: null
+name: Siamese CNN Resnet152 ImageWeights
+source_run_id: 9fdee51e39bc4f009ef31fc233c4b229
+status: 2
+status_message: null
