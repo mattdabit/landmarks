@@ -1,0 +1,10 @@
+artifact_location: file:///mnt/c/Users/Matt/workspace/landmarks/mlruns/745548148810810489/models/m-7299dec2d67a4c669bcbe2e71c4492f9/artifacts
+creation_timestamp: 1759103283310
+experiment_id: '745548148810810489'
+last_updated_timestamp: 1759103286367
+model_id: m-7299dec2d67a4c669bcbe2e71c4492f9
+model_type: null
+name: Logistic Regression
+source_run_id: f1ddc26a6fb04bb0859ec2ec967d3179
+status: 2
+status_message: null

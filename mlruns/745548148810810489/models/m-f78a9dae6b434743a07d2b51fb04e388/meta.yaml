@@ -1,0 +1,10 @@
+artifact_location: file:///mnt/c/Users/Matt/workspace/landmarks/mlruns/745548148810810489/models/m-f78a9dae6b434743a07d2b51fb04e388/artifacts
+creation_timestamp: 1759103270182
+experiment_id: '745548148810810489'
+last_updated_timestamp: 1759103273897
+model_id: m-f78a9dae6b434743a07d2b51fb04e388
+model_type: null
+name: Dummy Classifier
+source_run_id: 8500598457444602a49a9f0453ccee5f
+status: 2
+status_message: null

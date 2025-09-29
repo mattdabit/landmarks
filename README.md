@@ -82,6 +82,7 @@ The data extraction code processes the landmark images to create parquet files c
 ### Image Stats
 
 Basic details of the image
+
 1. Height
 2. Width
 3. Aspect Ratio
@@ -97,6 +98,7 @@ Basic details of the image
    as I think the dimensionality reduction I do may have lost too much data.
 
 ### Embeddings 2D
+
 1. After noticing the size of the embedding files, I knew I had to reduce the amount of data I had for training.
 2. I used a technique called t-distributed stochastic neighbor embedding, which reduces data to two points.
 3. As we will see in the EDA, the values produced
@@ -104,6 +106,7 @@ Basic details of the image
    clusters.
 
 ### Local Binary Pattern
+
 1. [LBP](https://en.wikipedia.org/wiki/Local_binary_patterns) is a texture descriptor. It does this by comparing a
    pixel to its neighboring pixels. It captures the
    intensity
@@ -121,6 +124,7 @@ Next, I joined all the parquets into 1 for each feature type (excluding embeddin
 Finally, I joined all that data into the train csv and produced a new dataset to train on with the features above.
 
 ### IMPORTANT NOTE
+
 ⚠️IMPORTANT NOTE: The joined_features_all.parquet file, which contains combined features for all landmarks, is not
 included in the
 repository
@@ -226,18 +230,25 @@ in mlflow.
 
 ### Base model comparison (Traditional ML Models)
 
-Earlier experiments showed me that my machine cannot train such a large model with sklearn in a reasonably time. In order
-to be pragmatic, I reduce the number of landmarks to train on to 100.
+Earlier experiments showed me that my machine cannot train such a large model with sklearn in a reasonably time. In
+order
+to be pragmatic, I reduce the number of landmarks to train on to 500.
 This may prove to not be an issue when I move to use pytorch/tensorflow, as both packages can leverage my GPU.
 
 <img src="images/model_metrics_comparison.png"/>
 
-The traditional machine learning models did performed very well in terms of average precision and provide a solid baseline.
-Our target metric for this project is average precision. We see that the Random Forest and Logistic Regression models both
-perform the best here.
-Now without any tuning, a score of <0.68 in average precision was very exciting. My larger goal will be to move to a deep
+Our target metric for this project is average precision, average precision is your score in the kaggle competition.
+The top score for this kaggle competition was 0.53751. A score above 0.31767 puts you in the top 100. 
+Take note of the Dummy Classifier scores. We see that all of the metrics for Dummy Classifer is below 0.06. I trained
+a Random  Forest, SVC, Logistic Regression and Gradient Boosting models. 
+The traditional machine learning models performed very well in terms of average precision and provide a solid baseline in comparison to the Dummy Classifier.
+We see that the Random Forest and Gradient Boosting models both
+perform the best here.  Keeping that in mind, we see
+without any tuning for the Gradient Boosting model acheived a score of 0.33 in average precision. That is very exciting, as it would put these models in the top 100.
+It is important to note that these models are not trained on the full dataset so our score could drop if we were to train against all images.
+My larger goal will be to move to a deep
 learning model
-but it may be nice to tune the Random Forest and Logistic Regression models as a comparison
+but the performance of the Random Forest and Gradient Boosting models for the cost of training is fantastic.
 
 ### Feature importance
 
@@ -257,8 +268,9 @@ also again see our 2D embedding as top features.
 
 <img src="images/logistic_regression_top_features.png"/>
 
-The 2D embedding features were the most important for logistic regression. This translated to better
-model performance compared to SVC and Gradient Boosting models. Mean color channels were also important to the Logistic Regression
+The 2D embedding features were the most important for logistic regression. This did not translate to better
+model performance. Mean color channels were also important to the Logistic
+Regression
 model.
 
 <img src="images/svc_top_features.png"/>
@@ -268,9 +280,6 @@ channels.
 
 ## Next Steps / Recommendations
 
-1. Handle class imbalance
-2. Look into width and height histograms
-3. Use full embedding
-4. Check out Deep Learning models like CNN
-5. Hyperparameters for Random Forest and cross-validation
-6. Build average LBP feature 
+1. Hyperparameters for traditional ML models (GB, Random forest)
+2. Try XGboost
+3. Graphing DL model performance and epoch loss

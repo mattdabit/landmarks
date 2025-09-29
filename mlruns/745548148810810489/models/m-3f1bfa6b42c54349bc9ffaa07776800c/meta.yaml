@@ -1,0 +1,10 @@
+artifact_location: file:///mnt/c/Users/Matt/workspace/landmarks/mlruns/745548148810810489/models/m-3f1bfa6b42c54349bc9ffaa07776800c/artifacts
+creation_timestamp: 1759103276831
+experiment_id: '745548148810810489'
+last_updated_timestamp: 1759103280680
+model_id: m-3f1bfa6b42c54349bc9ffaa07776800c
+model_type: null
+name: Random Forest
+source_run_id: 6da2aa7e54d24ac0b3bddb743cda21b9
+status: 2
+status_message: null
