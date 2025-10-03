@@ -1,0 +1,14 @@
+artifact_uri: file:///mnt/c/Users/Matt/workspace/landmarks/mlruns/745548148810810489/c5c6a6e3d24943c9b6fd2f3a94de08f3/artifacts
+end_time: 1759416300341
+entry_point_name: ''
+experiment_id: '745548148810810489'
+lifecycle_stage: active
+run_id: c5c6a6e3d24943c9b6fd2f3a94de08f3
+run_name: SVC
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1759416295388
+status: 3
+tags: []
+user_id: matt

@@ -1,0 +1,14 @@
+artifact_uri: file:///mnt/c/Users/Matt/workspace/landmarks/mlruns/745548148810810489/0865cb10fb2c4093993a682bf6dc1d5a/artifacts
+end_time: 1759416286068
+entry_point_name: ''
+experiment_id: '745548148810810489'
+lifecycle_stage: active
+run_id: 0865cb10fb2c4093993a682bf6dc1d5a
+run_name: Dummy Classifier
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1759416282985
+status: 3
+tags: []
+user_id: matt

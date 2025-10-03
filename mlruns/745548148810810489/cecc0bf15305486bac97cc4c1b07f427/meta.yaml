@@ -1,0 +1,14 @@
+artifact_uri: file:///mnt/c/Users/Matt/workspace/landmarks/mlruns/745548148810810489/cecc0bf15305486bac97cc4c1b07f427/artifacts
+end_time: 1759511386990
+entry_point_name: ''
+experiment_id: '745548148810810489'
+lifecycle_stage: active
+run_id: cecc0bf15305486bac97cc4c1b07f427
+run_name: Siamese CNN Resnet152_lr_0.01_loss_CosineSimilarityLoss_epochs_165
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1759511114973
+status: 3
+tags: []
+user_id: matt

@@ -1,0 +1,14 @@
+artifact_uri: file:///mnt/c/Users/Matt/workspace/landmarks/mlruns/745548148810810489/8abb2b10c13c4627a516a734ec448395/artifacts
+end_time: 1759416295360
+entry_point_name: ''
+experiment_id: '745548148810810489'
+lifecycle_stage: active
+run_id: 8abb2b10c13c4627a516a734ec448395
+run_name: Logistic Regression
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1759416291427
+status: 3
+tags: []
+user_id: matt

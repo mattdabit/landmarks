@@ -1,0 +1,14 @@
+artifact_uri: file:///mnt/c/Users/Matt/workspace/landmarks/mlruns/745548148810810489/1ac463b22f8f41519ed524dafb88b38e/artifacts
+end_time: 1759458897008
+entry_point_name: ''
+experiment_id: '745548148810810489'
+lifecycle_stage: active
+run_id: 1ac463b22f8f41519ed524dafb88b38e
+run_name: XGBoost
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1759458855692
+status: 4
+tags: []
+user_id: matt

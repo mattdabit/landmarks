@@ -5,3 +5,5 @@
 *.pth
 mlruns/745548148810810489/models/m-da03c7e0501a44e69545b6c6dd70b146/artifacts/model.pkl
 mlruns/745548148810810489/models/m-3f1bfa6b42c54349bc9ffaa07776800c/artifacts/model.pkl
+mlruns/745548148810810489/models/m-1d77e2e8e8464733a25d960d356c963e/artifacts/model.pkl
+mlruns/745548148810810489/models/m-5fcea2f8ffba4b45ae7eac514eb6e4a6/artifacts/model.pkl
