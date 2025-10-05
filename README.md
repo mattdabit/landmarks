@@ -193,7 +193,7 @@ The above are the landmarks selected by the above code. Since we are dealing wit
 
 <img src="images/color_channel_pairwise_5_landmarks.png"/>
 
-When I compared these 5 unique landmarks and their associated images I found some concetrations and clusters visually in
+When I compared these 5 unique landmarks and their associated images, I found some concetrations and clusters visually in
 the scatter plot.
 This gave me some hope that mean RGB could be a powerful feature. We may want to transform it more by creation ratios.
 
@@ -210,7 +210,7 @@ Once again I used the 5 unique landmarks. The local binary pattern of an image w
 for each pixel.
 This process describes the texture of an image. For this plot, I grouped the data by landmark id and calculated the
 average local binary pattern. I then plotted this data.
-Here we can see a visually identifiable different between the landmarks for the 12 & 13 bins. If we can extract that
+Here we can see a visually identifiable difference between the landmarks for the 12 & 13 bins. If we can extract that
 feature and utilize it
 for our future models we may see success.
 
@@ -223,7 +223,7 @@ suggests that our embedding process has successfully captured the characteristic
 
 <img src="images/embedding_2d_scatter_25_landmarks.png"/>
 
-I was so excited about the above finding with 5 landmarks I tried the same process with 25 and found similar results!
+I was so excited about the above finding with 5 landmarks, I tried the same process with 25 and found similar results!
 This shows embeddings, even when reduced to two dimensions, will be a very strong feature for modeling.
 
 ## Base Model Analysis
@@ -236,9 +236,8 @@ in mlflow.
 
 ### Base model comparison (Traditional ML Models)
 
-Earlier experiments showed me that my machine cannot train such a large model with sklearn in a reasonably time. In
-order
-to be pragmatic, I reduce the number of landmarks to train on to 500.
+Earlier experiments showed me that my machine cannot train such a large model with sklearn in a reasonable time. In
+order to be pragmatic, I reduce the number of landmarks to train on to 500.
 This meant a dataset of 31,832 images.
 This may prove to not be an issue when I move to use pytorch/tensorflow, as both packages can leverage my GPU.
 
@@ -252,16 +251,17 @@ Simply, find the next 100 images that most closely resemble the input image.
 For my experimentation I chose a top_k of 5 to reduce the load on my PC.
 I will speak more about my approach in the final thoughts section.
 A score above 0.31767 puts you in the top 100. 
-Take note of the Dummy Classifier scores. We see that all of the metrics for Dummy Classifer is below 0.06. I trained
-a Random  Forest, SVC, Logistic Regression and Gradient Boosting models. 
+Take note of the Dummy Classifier scores.
+We see that all of the metrics for Dummy Classifer are below 0.06. I trained
+a Random Forest, SVC, Logistic Regression and Gradient Boosting models. 
 The traditional machine learning models performed very well in terms of average precision and provide a solid baseline in comparison to the Dummy Classifier.
 We see that the Random Forest and Gradient Boosting models both
 perform the best here.  Keeping that in mind, we see
-without any tuning for the Gradient Boosting model acheived a score of 0.30 in average precision.
+without any tuning for the Gradient Boosting model achieved a score of 0.30 in average precision.
 That is very exciting, as it would put this model near the top 100.
 It is important to note that these models are not trained on the full dataset so our score could drop if we were to train against all images.
 My larger goal will be to move to a deep
-learning model
+learning model, 
 but the performance of the Random Forest and Gradient Boosting models for the cost of training is fantastic.
 
 ### Feature importance
@@ -277,7 +277,7 @@ image similarity detection
 
 <img src="images/gradient_top_features.png"/>
 
-I noticed the bin 24 for local binary pattern is also in the top features for Gradient Boosting, like Random Forest. We
+I noticed the bin 24 for the local binary pattern is also in the top features for Gradient Boosting, like Random Forest. We
 also again see our 2D embedding as top features.
 
 <img src="images/logistic_regression_top_features.png"/>
@@ -289,13 +289,13 @@ model.
 
 <img src="images/svc_top_features.png"/>
 
-The 2D embedding features were the most important for the SVC model, followed by the the 2D embedding and color
+The 2D embedding features were the most important for the SVC model, followed by the 2D embedding and color
 channels.
 
 ## XGBoost
 
 I was pleasantly surprised with how fast the XGBoost library trained the model.
-I did train the deep learning models before the XGBoost model so I was painfully aware of how long it could take to train these models.
+I did train the deep learning models before the XGBoost model, so I was painfully aware of how long it could take to train these models.
 Notably, I used the same training set as the Traditional Models above (500 unique landmarks).
 It took under two minutes and the model delivered fantastic results.
 I used the following hyperparameters: 
@@ -310,34 +310,34 @@ I used the following hyperparameters:
 
 <img src="images/model_metrics_comparison2.png"/>
 
-As we see in the image above the XGBoost model blew the scikit-learn models out of the water.
-XGBoost had a average precision score 0.53.
+As we see in the image above, the XGBoost model blew the scikit-learn models out of the water.
+XGBoost had an average precision score 0.53.
 This competes with the best model in the competition.
-Yes, we reduced top_k to 5 and we are working on a smaller dataset but I was still shocked to see these results.
+Yes, we reduced top_k to 5, and we are working on a smaller dataset, but I was still shocked to see these results.
 Given the time to train this model, about 2 minutes, this payoff is unbelievable.
-Now we do need to consider the cost to extract the features we used to train this model but that will still be nominal when compared to the deep learning models,
+Now we do need to consider the cost to extract the features we used to train this model, but that will still be nominal when compared to the deep learning models,
 as we will see later. 
 
 ## Deep Learning Models CNN
 
 I train a variety of Siamese Neural Networks using variations of ResNet as the base model and different hyperparameters.
 The way a Siamese Neural Network trains involves two networks, referred to as the twin networks.
-When training two images are selected, a positive match and a negative match.
-The negative images forces the learning and the positive images act as a regularizer.
+During training two images are selected, a positive match and a negative match.
+The negative image force the learning, and the positive image act as a regularizer.
 Siamese neural nets are best known for face recognition.
 I was inspired by "Deep Learning for Coders with fastai and PyTorch"
-by Jeremy Howard & Sylvain Gugger to use the Siamease Neural Network with ResNet as the base. 
-Contrastive loss is the most common loss function but I also tried Cosine Similarity.
+by Jeremy Howard & Sylvain Gugger to use the Siamese Neural Network with ResNet as the base. 
+Contrastive loss is the most common loss function, but I also tried Cosine Similarity.
 It took a long time to train each epoch, approximately an hour per epoch.
 To combat these long training times,
 I leverage created checkpoint functions to load and save state after each epoch run.
 If a run were to fail or stop, I could retrain and restart from the last epoch trained.
-I continually faced GPU out of memory issues so the checkpoints helped immensely.
-The checkpoints also gave opportunity for early evaluation of hyperparameters and allowed me to easily edit the training code for memory improvements. 
-I added `del` statements as a memory saving techniques in order to continue the training process.
+I continually faced GPU out of memory issues, so the checkpoints helped immensely.
+The checkpoints also gave an opportunity for early evaluation of hyperparameters and allowed me to easily edit the training code for memory improvements. 
+I added `del` statements as a memory saving technique in order to continue the training process.
 This freed up precious GPU memory so that training could continue.
 I also had to reduce the batch size to 8 to reduce memory impact.
-This definitely could have effected the training of the models. 
+This definitely could have affected the training of the models. 
 I trained the models on my personal computer specs below. 
 
 ```
@@ -346,7 +346,7 @@ RAM: 64.0 GB
 GPU: NVIDIA GeForce RTX 4070 Ti SUPER
 ```
 
-I didn't think I was lacking in power but it became clear my system could not handle the entire dataset.
+I didn't think I was lacking in power, but it became clear my system could not handle the entire dataset.
 So I reduced the training set by only selecting landmarks with 50 samples or more.
 This led to 675,029 unique images. 
 
@@ -356,17 +356,17 @@ Here are the various models I tried.
   - Learning Rates: `0.001, 0.01, 0.1`
   - Loss Functions: `Cosine Similarity Loss, Contrastive Loss`
   - Epochs: `10`
-  - A full retrain of resnet
+  - A full retraining of resnet
 - **Siamese CNN Resnet50**
   - Learning Rates: `0.001, 0.01, 0.1`
   - Loss Functions: `Cosine Similarity Loss, Contrastive Loss`
   - Epochs: `10`
-  - A full retrain of resnet
+  - A full retraining of resnet
 - **Siamese CNN Resnet50 ImageWeights**
   - Learning Rates: `0.001, 0.01, 0.1`
   - Loss Functions: `Cosine Similarity Loss, Contrastive Loss`
   - Epochs: `10`
-  - A full retrain of resnet
+  - A full retraining of resnet
 - **Siamese CNN Resnet50 Fully Connected Layer Retrain**
   - Learning Rates: `0.001`
   - Loss Functions: `Contrastive Loss`
@@ -377,19 +377,19 @@ Here are the various models I tried.
   - Learning Rates: `0.001, 0.01, 0.1`
   - Loss Functions: `Cosine Similarity Loss, Contrastive Loss`
   - Epochs: `10`
-  - A full retrain of resnet
+  - A full retraining of resnet
 - **Siamese CNN Resnet152 ImageWeights**
   - Learning Rates: `0.001, 0.01, 0.1`
   - Loss Functions: `Cosine Similarity Loss, Contrastive Loss`
   - Epochs: `10`
   - Use `IMAGENET1K_V2` for image weights
-  - A full retrain of resnet
+  - A full retraining of resnet
 - **Siamese CNN Resnet50 ImageWeights Full**
   - Learning Rates: `0.001`
   - Loss Functions: `Contrastive Loss`
   - Epochs: `165`
   - Use `IMAGENET1K_V2` for image weights
-  - A full retrain of resnet
+  - A full retraining of resnet
   - Resnet50 was chosen for time constraint reasons
 
 
@@ -398,9 +398,9 @@ Here are the various models I tried.
 <img src="images/loss_over_epoch.png"/>
 
 This is a compilation of all the deep learning models trained for 10 epochs.
-We see immediately that the a higher learning rate led to a stationary loss.
-Cosine Similarity loss did not have this problem which is interesting to note.
-We also see that some models had a outlanding loss for their first epoch but quickly reached the 0-2 range.
+We see immediately that the higher learning rate led to a static loss.
+Cosine Similarity loss did not have this problem, which is interesting to note.
+We also see that some models had an outlandish loss for their first epoch but quickly reached the 0-2 range.
 The Cosine Similarity loss was also more bumpy than the Contrastive loss.
 
 ### Retrain Fully Connected Layer
@@ -408,14 +408,14 @@ The Cosine Similarity loss was also more bumpy than the Contrastive loss.
 <img src="images/epoch_loss_fc.png"/>
 
 This is the loss of the **Siamese CNN Resnet50 Fully Connected Layer Retrain** model.
-Of course with more epochs the trend becomes more clear.
+Of course, with more epochs, the trend becomes more clear.
 I would not be surprised if I trained this model for epochs that the loss would smooth out like below.
 
 ### Retrain Entire Model
 
 <img src="images/epoch_loss_full.png"/>
 
-First off, let's appreciate the graph here, it is perfecly smooth line that looks like it came out of a textbook.
+First off, let's appreciate the graph here; it is almost a perfecly smooth line that looks like it came out of a textbook.
 The **Siamese CNN Resnet50 ImageWeights Full** model trained for 6 days and 21 hours.
 Not surprisingly, it was the best performing model.
 I tested the model at different epoch points and actually found that epoch 100 had the best scores.  
@@ -569,28 +569,27 @@ I think it may be worth while to train the FC retrain model for more epochs give
 
 <img src="images/all_model_metrics_comparison.png"/>
 
-
 In the table and graph above we see clearly that XGBoost outperformed the competition.
-Now it is working with a smaller sample size 38,132 vs 675,029 for deep learning models so there is an asterisk to this result.
+Now it is working with a smaller sample size 38,132 vs. 675,029 for deep learning models, so there is an asterisk to this result.
 We can also see that the deep learning models had excellent recall.
 The fully trained deep learning model had an average precision of 0.276.
-This is remarkably close to the top 100 and additionally we trained on 1/3 of the training set.
-Overall I am very pleased with result my models produced. 
+This is remarkably close to the top 100, and additionally we trained on 1/3 of the training set.
+Overall, I am very pleased with the results my models produced. 
 
 ## Final Thoughts
 
 Traditional machine learning models still have a place in this world.
 I think what truly caught me off guard was the time cost to train the deep learning models.
-I wanted to experiment more and I wanted to train more epochs but time and power constraints would get in the way.
+I wanted to experiment more, and I wanted to train more epochs, but time and power constraints would get in the way.
 I think with more power & resources the deep learning models would outperform the traditional ML models.
-I also saw from priory experiments that the more data I introduced the worse the traditional ML models would perform.
-I am als not factoring the time it took to extract all of these features for the traditional ML models. 
-This leads to me to conclude that the deep learning model would be the route to go.
-This project gave me a new found appreciation for the DL models that are available to public.
+I also saw from priory experiments that the more data I introduced, the worse the traditional ML models would perform.
+I am also not factoring the time it took to extract all of these features for the traditional ML models. 
+This leads me to conclude that the deep learning model would be the route to go.
+This project gave me a new-found appreciation for the DL models that are available to the public.
 The sheer cost and time to train DL models is mindbogling.
-The ResNet models are open source and I have no doubt it took a long time and a lot of money to train these models.
+The ResNet models are open source, and I have no doubt it took a long time and a lot of money to train these models.
 This experience does put into perspective the pressure some ML engineers must feel when beginning the training of a new model.
-You must be absolutely confident that the model will produce the results you want otherwise you will be wasting a lot of resources.
+You must be absolutely confident that the model will produce the results you want, otherwise you will be wasting a lot of resources.
 If I could redirect the research world,
 I would set them on a path to reduce the time and costs to generate these foundational models.
 Marginal cuts to cost and time for training will lead to faster discoveries and more experimentation amongst researchers. 
