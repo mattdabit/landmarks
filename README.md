@@ -307,6 +307,20 @@ I used the following hyperparameters:
 - Number of Estimators: `100`
 - Early Stop Rounds: `10`
 
+Later on I used `GridSearchCV` to try and find better hyperparameters for the XGBoost model.
+I made a custom scorer for average precision and looked at the following parameters. 
+
+```
+param_grid = {
+    "max_depth": [3, 5, 7, 9],
+    "learning_rate": [0.1, 0.01, 0.05],
+    "n_estimators": [50, 100, 200, 300],
+}
+```
+
+The best parameters found by the GridSearchCV method were `{'learning_rate': 0.1, 'max_depth': 3, 'n_estimators': 50}`.
+However, the GridSearchCV XGBoost model did not beat out my first iteration of XGBoost.
+The XGBoost GridSearchCV does still got second place amongst all the models. 
 
 <img src="images/model_metrics_comparison2.png"/>
 
@@ -510,6 +524,17 @@ I think it may be worth while to train the FC retrain model for more epochs give
     <td>0.4472</td>
   </tr>
   <tr>
+    <td>XGBoost GridSearch</td>
+    <td>0.391</td>
+    <td>0.4843</td>
+    <td>0.2375</td>
+    <td>0.2380</td>
+    <td>0.2792</td>
+    <td>0.3656</td>
+    <td>0.3961</td>
+    <td>0.3815</td>
+  </tr>
+  <tr>
     <td>Siamese CNN Resnet18</td>
     <td>0.0619</td>
     <td>0.0718</td>
@@ -569,7 +594,7 @@ I think it may be worth while to train the FC retrain model for more epochs give
 
 <img src="images/all_model_metrics_comparison.png"/>
 
-In the table and graph above we see clearly that XGBoost outperformed the competition.
+In the table and graph above we see clearly that XGBoost & the Gridsearch XGBoost outperformed the competition.
 Now it is working with a smaller sample size 38,132 vs. 675,029 for deep learning models, so there is an asterisk to this result.
 We can also see that the deep learning models had excellent recall.
 The fully trained deep learning model had an average precision of 0.276.
@@ -586,7 +611,7 @@ I also saw from priory experiments that the more data I introduced, the worse th
 I am also not factoring the time it took to extract all of these features for the traditional ML models. 
 This leads me to conclude that the deep learning model would be the route to go.
 This project gave me a new-found appreciation for the DL models that are available to the public.
-The sheer cost and time to train DL models is mindbogling.
+The sheer cost and time to train DL models is mindboggling.
 The ResNet models are open source, and I have no doubt it took a long time and a lot of money to train these models.
 This experience does put into perspective the pressure some ML engineers must feel when beginning the training of a new model.
 You must be absolutely confident that the model will produce the results you want, otherwise you will be wasting a lot of resources.
