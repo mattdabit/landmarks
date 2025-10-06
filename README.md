@@ -1,6 +1,7 @@
 # Landmarks
 
 A repository focused on landmark recognition and retrieval.
+All of this is also available on my personal [website](https://matthewdabit.com/)
 
 ## Table of Contents
 
